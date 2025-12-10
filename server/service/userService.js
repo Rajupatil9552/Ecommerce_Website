@@ -24,6 +24,20 @@ const getUserProfileService = async (req,res) => {
 
 }
 
+const getAllUsersService = async (req,res) => {
+    try {
+        const users = await User.find();
+        if(!users){
+            return res.status(404).send("User not found");
+        }
+        console.log("All User:", users);
+        return users;
+    }
+    catch (error) {
+        res.send(error.message);
+    }
+}
+
 const updateUserService = async (req,res) => {
     try{
         const userId = getUserIdFromRequest(req);
@@ -54,5 +68,6 @@ const updateUserService = async (req,res) => {
 
 export {
     getUserProfileService,
-    updateUserService
+    updateUserService,
+    getAllUsersService
 }

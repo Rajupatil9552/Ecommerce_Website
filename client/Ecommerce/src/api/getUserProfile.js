@@ -1,10 +1,8 @@
 import axios from 'axios';
 
 const backendURL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
-console.log("Backend URL in fetchProduct.js:", backendURL);
-const token = localStorage.getItem('token') || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Mjg2NWRhN2I2M2ViOWMxMjRhOTc0OCIsImlhdCI6MTc2NDgyNDgxNiwiZXhwIjoxNzY0ODQyODE2fQ.0mEtKP_h1_WxyVeu5JEn1sXKSGAMMz6cYN1twdcQUo8";
 
-
+const token = localStorage.getItem('token');
 const getUserProfile = async () => {
     try{
         const response = await axios.get(`${backendURL}/api/user/profile`, {
@@ -20,6 +18,38 @@ const getUserProfile = async () => {
     }
 }
 
+const getAllUsers = async () => {
+    try{
+        const response = await axios.get(`${backendURL}/api/user/get-all-users`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response;
+    }
+    catch(error){
+        console.error("Error fetching user profile:", error);
+        throw error;    
+    }
+}
+
+  const updateUser = async (userData) => {
+    try {
+      const response = await axios.put(`${backendURL}/api/user/update-profile`, userData, { 
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+      });
+      return response;
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+      throw error;
+    }
+    };
+
 export{
-    getUserProfile
+    getUserProfile,
+    getAllUsers,
+    updateUser
 }

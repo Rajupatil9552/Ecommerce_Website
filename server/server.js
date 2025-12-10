@@ -1,3 +1,4 @@
+
 import express from 'express';
 import userRouter from './routes/userRoutes.js';
 import productRouter from './routes/productRoutes.js';
@@ -20,7 +21,6 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
 //middleware
 app.use(express.json());
 
@@ -28,12 +28,14 @@ app.use(express.json());
 databaseConnection();
     
 
+//routes
 
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
+
 
 //error handling middelware for routes not found
 app.use((req, res, next) => {

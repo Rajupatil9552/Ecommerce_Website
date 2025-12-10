@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const backendURL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 console.log("Backend URL in fetchProduct.js:", backendURL);
-const token = localStorage.getItem('token') || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Mjg2NWRhN2I2M2ViOWMxMjRhOTc0OCIsImlhdCI6MTc2NDgzOTQzNiwiZXhwIjoxNzY0ODU3NDM2fQ.DgPefkBFpb1cQ1TyZlN3I4gAzIMnBSQi_B-Xn2DUxcc";
+const token = localStorage.getItem('token');
 console.log("Token in cartApi.js:", token);
 
 

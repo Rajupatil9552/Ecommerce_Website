@@ -2,6 +2,7 @@ import OrderModel from '../model/orderModel.js';
 import { getUserIdFromRequest } from '../helper/helper.js';
 import productModel from '../model/productModel.js';
 import cartModel from '../model/cartModel.js';
+import User from '../model/userModel.js';
 
 const getOrderHistoryService = async(req , res) =>{
     try{
@@ -16,6 +17,22 @@ const getOrderHistoryService = async(req , res) =>{
         throw new Error(error.message);
     }
 }
+
+
+const getAllOrdersService = async(req , res) =>{
+    try{
+        const userId = getUserIdFromRequest(req);
+        const orders = await OrderModel.find();
+        if(orders.length === 0){
+            return res.status(200).send("No orders found for user");
+        }
+        return orders;
+    }
+    catch(error){
+        throw new Error(error.message);
+    }
+}
+
 
 
 const placeOrderService = async(req , res) =>{
@@ -54,6 +71,15 @@ const placeOrderService = async(req , res) =>{
         }
 
         await newOrder.save();
+        //add this order to user's order history
+        const user = await User.findById(userId);
+        if(user){
+            if(!user.orderHistory){
+                user.orderHistory = [];
+            }
+            user.orderHistory.push(newOrder._id);
+            await user.save();
+        }
         return newOrder;
     }
     catch(error){
@@ -113,5 +139,6 @@ export {
     placeOrderService,
     getOrderHistoryService, 
     cancelOrderService,
-    updateOrderStatusService
+    updateOrderStatusService,
+    getAllOrdersService
 }

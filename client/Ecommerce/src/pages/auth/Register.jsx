@@ -136,7 +136,7 @@ const Register = () => {
             </motion.div>
             <div className="text-left">
               <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                StyleCart
+                ShopCart
               </h1>
               <p className="text-xs text-gray-400">Join Our Community</p>
             </div>
